@@ -1,0 +1,37 @@
+local A=game:GetService("Players")local B=game:GetService("UserInputService")local C=game:GetService("RunService")local D=A.LocalPlayer
+local E=Instance.new("ScreenGui")E.Name="U1" E.ResetOnSpawn=false E.Parent=D:WaitForChild("PlayerGui")
+local F=Instance.new("Frame",E)F.Size=UDim2.new(0,200,0,240)F.Position=UDim2.new(0.7,0,0.2,0)F.BackgroundColor3=Color3.new(0.1,0.1,0.1)F.BorderSizePixel=0
+local G=Instance.new("TextLabel",F)G.Size=UDim2.new(1,0,0,30)G.Text="Universal" G.Font=Enum.Font.SourceSansBold G.TextSize=18 G.TextColor3=Color3.new(1,1,1) G.BackgroundColor3=Color3.new(0.2,0.2,0.2) G.BorderSizePixel=0
+local H=Instance.new("TextButton")H.Parent=F H.Size=UDim2.new(0,30,0,30) H.Position=UDim2.new(1,-30,0,0) H.BackgroundColor3=Color3.new(0.6,0,0) H.BorderSizePixel=0 H.Text="X" H.Font=Enum.Font.SourceSansBold H.TextSize=18 H.TextColor3=Color3.new(1,1,1)
+H.MouseButton1Click:Connect(function()E:Destroy()end)
+local function I(J,K)local L=Instance.new("TextButton",F)L.Size=UDim2.new(0,180,0,30)L.Position=UDim2.new(0,10,0,K)L.Text=J L.Font=Enum.Font.SourceSans L.TextSize=16 L.TextColor3=Color3.new(1,1,1) L.BackgroundColor3=Color3.new(0.2,0.2,0.2) L.BorderSizePixel=0 return L end
+local M=I("Aimbot: OFF",40)local N=I("ESP: OFF",80)local O=I("Noclip: OFF",120)
+local P=Instance.new("TextBox",F)P.Size=UDim2.new(0,120,0,25)P.Position=UDim2.new(0,10,0,160)P.PlaceholderText="Speed" P.TextColor3=Color3.new(1,1,1) P.BackgroundColor3=Color3.new(0.3,0.3,0.3) P.BorderSizePixel=0 P.Text="Speed" P.TextScaled=true
+local Q=Instance.new("TextButton",F)Q.Size=UDim2.new(0,50,0,25)Q.Position=UDim2.new(0,140,0,160)Q.Text="Set" Q.TextColor3=Color3.new(1,1,1) Q.BackgroundColor3=Color3.new(0.2,0.2,0.2) Q.BorderSizePixel=0 Q.TextScaled=true
+local R=Instance.new("TextBox",F)R.Size=UDim2.new(0,120,0,25)R.Position=UDim2.new(0,10,0,190) R.PlaceholderText="Jump" R.TextColor3=Color3.new(1,1,1) R.BackgroundColor3=Color3.new(0.3,0.3,0.3) R.BorderSizePixel=0 R.Text="Jump" R.TextScaled=true
+local S=Instance.new("TextButton",F)S.Size=UDim2.new(0,50,0,25)S.Position=UDim2.new(0,140,0,190)S.Text="Set" S.TextColor3=Color3.new(1,1,1) S.BackgroundColor3=Color3.new(0.2,0.2,0.2) S.BorderSizePixel=0 S.TextScaled=true
+S.MouseButton1Click:Connect(function()local T=tonumber(R.Text) if T and D.Character and D.Character:FindFirstChild("Humanoid")then D.Character.Humanoid.JumpPower=T else error("E")end end)
+local U=false local V=false local W=false local X=false local Y=16
+E.ZIndexBehavior=Enum.ZIndexBehavior.Global E.DisplayOrder=1000 F.ZIndex=10 G.ZIndex=11 M.ZIndex=12 N.ZIndex=12 O.ZIndex=12 P.ZIndex=12 Q.ZIndex=12 R.ZIndex=12 S.ZIndex=12 H.ZIndex=15
+local function Z(a1,a2)if a1.Team and a2.Team then return a1.Team~=a2.Team end return true end
+local function _0(_1)local _2=workspace.CurrentCamera local _3=_1:FindFirstChild("Head") if _3 then _2.CFrame=CFrame.new(_2.CFrame.Position,_3.Position)end end
+M.MouseButton1Click:Connect(function()U=not U V=false M.Text="Aimbot: "..(U and"READY [R]"or"OFF") M.BackgroundColor3=U and Color3.new(0.5,0.5,0)or Color3.new(0.2,0.2,0.2)end)
+B.InputBegan:Connect(function(_4,_5)if _5 then return end if _4.KeyCode==Enum.KeyCode.R and U then V=not V M.Text="Aimbot: "..(V and"ON"or"READY [R]") M.BackgroundColor3=V and Color3.new(0,0.5,0)or Color3.new(0.5,0.5,0)end end)
+C.RenderStepped:Connect(function()if not(U and V)then return end local _6,_7=nil,math.huge for _,_8 in ipairs(A:GetPlayers())do if _8~=D and _8.Character and _8.Character:FindFirstChild("HumanoidRootPart")then if Z(D,_8) and _8.Character.Humanoid.Health>0 then local _9=(D.Character.HumanoidRootPart.Position-_8.Character.HumanoidRootPart.Position).Magnitude if _9<_7 then _7=_9 _6=_8.Character end end end end if _6 then _0(_6)end end)
+local _a={}
+local function _b(_c)if _a[_c]then if _a[_c].box then _a[_c].box:Destroy()end if _a[_c].name then _a[_c].name:Destroy()end _a[_c]=nil end end
+local function _d(_e)if _e==D or not W or not Z(D,_e)then return end _b(_e) local _f=_e.Character if not _f then return end local _g=_f:WaitForChild("HumanoidRootPart",5)local _h=_f:WaitForChild("Head",5)local _i=_f:WaitForChild("Humanoid",5) if not(_g and _h and _i and _i.Health>0)then return end local _j=Instance.new("BoxHandleAdornment")_j.Adornee=_g _j.Size=Vector3.new(4,5,2) _j.Color3=Color3.new(1,0,0) _j.Transparency=0.7 _j.AlwaysOnTop=true _j.ZIndex=10 _j.Parent=_f local _k=Instance.new("BillboardGui")_k.Adornee=_h _k.Size=UDim2.new(0,100,0,40) _k.StudsOffset=Vector3.new(0,2,0) _k.AlwaysOnTop=true _k.Parent=_h local _l=Instance.new("TextLabel",_k) _l.Size=UDim2.new(1,0,1,0) _l.BackgroundTransparency=1 _l.Text=_e.Name _l.TextColor3=Color3.new(1,1,1) _l.TextStrokeTransparency=0 _l.TextSize=14 _a[_e]={box=_j,name=_k} end
+local function _m()for _,_n in ipairs(A:GetPlayers())do _d(_n)end end
+N.MouseButton1Click:Connect(function()W=not W N.Text="ESP: "..(W and"ON"or"OFF") N.BackgroundColor3=W and Color3.new(0,0.5,0)or Color3.new(0.2,0.2,0.2) if W then _m() else for _o,_p in pairs(_a)do _b(_o)end end end)
+A.PlayerAdded:Connect(function(_q)_q.CharacterAdded:Connect(function()task.wait(0.3) _d(_q)end)end)
+A.PlayerRemoving:Connect(function(_r)_b(_r)end)
+for _,_s in ipairs(A:GetPlayers())do _s.CharacterAdded:Connect(function()task.wait(0.3) _d(_s)end)end
+O.MouseButton1Click:Connect(function()X=not X O.Text="Noclip: "..(X and"ON"or"OFF") O.BackgroundColor3=X and Color3.new(0,0.5,0)or Color3.new(0.2,0.2,0.2) if not X and D.Character then for _,_t in pairs(D.Character:GetDescendants())do if _t:IsA("BasePart")then _t.CanCollide=true end end end end)
+C.RenderStepped:Connect(function()if X and D.Character then for _,_u in pairs(D.Character:GetDescendants())do if _u:IsA("BasePart")then _u.CanCollide=false end end end end)
+local _v=false local _w local _x
+local function _y(_z)local _0a=_z.Position-_w F.Position=UDim2.new(_x.X.Scale,_x.X.Offset+_0a.X,_x.Y.Scale,_x.Y.Offset+_0a.Y)end
+F.InputBegan:Connect(function(_0b)if _0b.UserInputType==Enum.UserInputType.MouseButton1 then _v=true _w=_0b.Position _x=F.Position _0b.Changed:Connect(function()if _0b.UserInputState==Enum.UserInputState.End then _v=false end end)end end)
+F.InputChanged:Connect(function(_0c)if _0c.UserInputType==Enum.UserInputType.MouseMovement and _v then _y(_0c)end end)
+B.InputChanged:Connect(function(_0d)if _0d.UserInputType==Enum.UserInputType.MouseMovement and _v then _y(_0d)end end)
+Q.MouseButton1Click:Connect(function()D.Character.Humanoid.WalkSpeed=tonumber(P.Text)or Y end)
+D.CharacterAdded:Connect(function(_0e)_0e:WaitForChild("Humanoid").WalkSpeed=tonumber(P.Text)or Y local _0f=tonumber(R.Text) local _10=_0e:WaitForChild("Humanoid") if _0f then _10.JumpPower=_0f else _10.JumpPower=50 end end)
